@@ -53,27 +53,32 @@ final class MovieQuizViewController: UIViewController {
         let text: String
         let buttonText: String
     }
+    
     struct QuizQuestion {
         let image: String
         let text: String
         let correctAnswer: Bool
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         show(quiz: convert(model: questions[currentQuestionIndex]))
     }
+    
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = true
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
+    
     @IBAction private func noButtonClicked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
+    
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
@@ -91,6 +96,7 @@ final class MovieQuizViewController: UIViewController {
             questionNumber: "\(currentQuestionIndex + 1)/\(questions.count)")
         return questionStep
     }
+    
     private func show(quiz step: QuizStepViewModel) {
         imageView.layer.borderWidth = 0
         imageView.image = step.image
@@ -106,6 +112,7 @@ final class MovieQuizViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
         }
+        
         if isCorrect {
             correctAnswers += 1
         }
